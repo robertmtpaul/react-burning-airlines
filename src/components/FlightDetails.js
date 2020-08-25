@@ -3,7 +3,6 @@ import axios from 'axios';
 
 class FlightDetails extends React.Component {
 
-
     render(){
         return(
             <div>
