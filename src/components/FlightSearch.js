@@ -15,3 +15,4 @@ class FlightSearch extends React.Component {
     }
 
 }
+export default FlightSearch

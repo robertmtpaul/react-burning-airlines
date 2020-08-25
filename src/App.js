@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import { Route, Link, Router } from 'react-router-dom';
+import axios from 'axios'
+import { Route, Link, HashRouter as Router } from 'react-router-dom';
 
 import FlightSearch from './components/FlightSearch'
 
@@ -10,20 +11,21 @@ class App extends React.Component {
   render(){
     return(
       <div>
-        <h1>Air Quality</h1>
+        <h1>Flight search</h1>
 
         <Router>
           <nav>
             <Link to='/'>Home</Link> | &nbsp;
-            <Link to='/FlightSearch'>My Air Quality</Link> | &nbsp;
+            <Link to='/FlightSearch'>FlightSearch</Link> | &nbsp;
+            <Link to='/Airplanes'>Airplanes</Link> | &nbsp;
+            <Link to='/Admin'>Admin</Link> | &nbsp;
               <hr/>
           </nav>
 
           <Route exact path='/' component={FlightSearch}/>
-          {/* <Route exact path='/search/country/:query' component={SearchCountry}/> */}
         </Router>
       </div>
-      
+
     ); //render
   }//render
 }//class App
