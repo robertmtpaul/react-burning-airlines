@@ -4,29 +4,32 @@ import axios from 'axios'
 import { Route, Link, HashRouter as Router } from 'react-router-dom';
 
 import FlightSearch from './components/FlightSearch'
+import FlightDetails from './components/FlightDetails'
+import Airplanes from './components/Airplanes'
 
-// Load title and navbar
+import './App.css'
+
 class App extends React.Component {
   
   render(){
     return(
       <div>
-        <h1>Flight search</h1>
+        <h1>Burning Airlines</h1>
 
         <Router>
           <nav>
-            <Link to='/'>Home</Link> | &nbsp;
             <Link to='/FlightSearch'>FlightSearch</Link> | &nbsp;
             <Link to='/Airplanes'>Airplanes</Link> | &nbsp;
             <Link to='/Admin'>Admin</Link> | &nbsp;
               <hr/>
           </nav>
 
-          <Route exact path='/' component={FlightSearch}/>
+          <Route exact path='/FlightSearch' component={FlightSearch}/>
+          <Route exact path='/flight/params:id' component={FlightDetails}/>
         </Router>
       </div>
 
-    ); //render
+    ); //return
   }//render
 }//class App
 
