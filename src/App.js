@@ -1,28 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
 import { Route, Link, Router } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import FlightSearch from './components/FlightSearch'
+
+// Load title and navbar
+class App extends React.Component {
+  
+  render(){
+    return(
+      <div>
+        <h1>Air Quality</h1>
+
+        <Router>
+          <nav>
+            <Link to='/'>Home</Link> | &nbsp;
+            <Link to='/FlightSearch'>My Air Quality</Link> | &nbsp;
+              <hr/>
+          </nav>
+
+          <Route exact path='/' component={FlightSearch}/>
+          {/* <Route exact path='/search/country/:query' component={SearchCountry}/> */}
+        </Router>
+      </div>
+      
+    ); //render
+  }//render
+}//class App
 
 export default App;
