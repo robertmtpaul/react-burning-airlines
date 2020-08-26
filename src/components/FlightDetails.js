@@ -7,13 +7,14 @@ class FlightDetails extends React.Component {
         return(
             <div>
             <table>
-                <tr>Date</tr>
-                <tr>Flight number</tr>
-                <tr>From '{">"}' To </tr>
             </table>
         </div>
         )
     }
+    // array of objects
+    // map through grid of each seat
+    // make grid of divs
+
 
 }
 export default FlightDetails

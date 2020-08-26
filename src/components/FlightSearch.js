@@ -3,50 +3,77 @@ import axios from 'axios';
 
 class FlightSearch extends React.Component {
 
-    state  = {
-        countries: [{ name: 'Australia', code: 'AU'}, { name: 'United Kingdom', code: 'UK'}, { name: 'New Zealand', code: 'NZ' }],
-        cities: [{ name: 'Sydney', code: 'SYD'}, { name: 'Melbourne', code: 'MEL'}]
-
+    state = {
+        airports: [{ name: 'Sydney', code: 'SYD' }, { name: 'Melbourne', code: 'MEL' }, { name: 'Auckland', code: 'AKL' }],
+        results: [
+            { 
+                date: "test date", 
+                flight_number: "test flight", 
+                origin: "test origin",
+                destination: "test dest",
+                plane: "test name"
+                
+            }, 
+            { 
+                date: "test date2", 
+                flight_number: "test flight 2", 
+                origin: "test origin 2",
+                destination: "test dest 2",
+                plane: "test name"
+            } 
+        ]  
     }
 
-    componentDidMount(){
+    // componentDidMount() {
+    //     axios.get('')
+    //     .then( data => {
+    //         this.setState({airports: data.results})
+    //     })
+    //     .catch(err => console.log(err));
+    // }
 
-    }
+    request
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <form>
                     <select>
-                        <option disabled selected>From</option>
+                        <option disabled selected>Please select origin airport</option>
                         {
-                            this.state.countries.map(country=> <option value={country.code}>{country.name}</option>)
+                            this.state.airports.map(airport => <option value={airport.code}>{airport.name}</option>)
                         }
                     </select>
                     <select>
-                        <option disabled selected>To</option>
+                        <option disabled selected>Please select destination airport</option>
                         {
-                            this.state.countries.map(country=> <option value={country.code}>{country.name}</option>)
+                            this.state.airports.map(airport => <option value={airport.code}>{airport.name}</option>)
                         }
                     </select>
-                    <select>
-                        <option disabled selected>From</option>
-                        {
-                            this.state.cities.map(city=> <option value={city.code}>{city.name}</option>)
-                        }
-                    </select>
-                    <select>
-                        <option disabled selected>To</option>
-                        {
-                            this.state.cities.map(city=> <option value={city.code}>{city.name}</option>)
-                        }
-                    </select>
+
+                    <input type='submit' value='Search' />
                 </form>
-                <br/>
+                <br />
+                <h3>Flight search results</h3>
                 <table>
-                    <tr>Date</tr>
-                    <tr>Flight number</tr>
-                    <tr>From '{">"}' To </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>Flight number</td>
+                        <td>From</td>
+                        <td>To</td>
+                        <td>Plane</td>
+                    </tr>
+                    {
+                        this.state.results.map(result => (
+                            <tr>
+                                <td>{result.date}</td>
+                                <td>{result.flight_number}</td>
+                                <td>{result.origin}</td>
+                                <td>{result.destination}</td>
+                                <td>{result.plane}</td>
+                           </tr>
+                        ))
+                    }
                 </table>
             </div>
         )

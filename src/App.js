@@ -19,8 +19,6 @@ class App extends React.Component {
         <Router>
           <nav>
             <Link to='/FlightSearch'>FlightSearch</Link> | &nbsp;
-            <Link to='/Airplanes'>Airplanes</Link> | &nbsp;
-            <Link to='/Admin'>Admin</Link> | &nbsp;
               <hr/>
           </nav>
 
