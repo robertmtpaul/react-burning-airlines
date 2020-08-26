@@ -42,3 +42,26 @@ table, td {
   border: 1px solid black;
   padding: 1px;
 }
+
+.active {
+  background-color: red;
+}
+
+.container{
+  display: grid;
+  width: 80vw;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+
+}
+
+.seat {
+  padding: 20px;
+  border-radius: 5%;
+}
+.seat:hover {
+  background-color: rgba(106, 66, 187, 0.9);
+}

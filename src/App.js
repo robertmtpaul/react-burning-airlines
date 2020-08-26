@@ -23,7 +23,7 @@ class App extends React.Component {
           </nav>
 
           <Route exact path='/FlightSearch' component={FlightSearch}/>
-          <Route exact path='/flight/params:id' component={FlightDetails}/>
+          <Route exact path='/flight/:id' component={FlightDetails}/>
         </Router>
       </div>
 
