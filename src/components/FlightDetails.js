@@ -65,13 +65,9 @@ class FlightDetails extends React.Component {
 
     selectUser = (event) => {
         this.setState({user_id: event.target.value})
-        const user = new RegExp(`^${event.target.value}$`);
-        const selection = this.state.users.filter(r => r.id.match(user))[0]
-        console.log( selection )
-
-        // this.setState({user_name })
+        const selection = this.state.users.filter(user => {return user.id == event.target.value})[0].name
+        this.setState({user_name: selection})
     }
-
 
 
     render() {
@@ -109,9 +105,6 @@ class FlightDetails extends React.Component {
             </div>
         );
     }
-    // array of objects
-    // map through grid of each seat
-    // make grid of divs
 }
 
 export default FlightDetails;
