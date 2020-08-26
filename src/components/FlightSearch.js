@@ -3,6 +3,9 @@ import axios from 'axios';
 
 class FlightSearch extends React.Component {
 
+
+
+    
     state = {
         airports: [{ name: 'Sydney', code: 'SYD' }, { name: 'Melbourne', code: 'MEL' }, { name: 'Auckland', code: 'AKL' }],
         results: [
@@ -24,15 +27,14 @@ class FlightSearch extends React.Component {
         ]  
     }
 
-    // componentDidMount() {
-    //     axios.get('')
-    //     .then( data => {
-    //         this.setState({airports: data.results})
-    //     })
-    //     .catch(err => console.log(err));
-    // }
+    componentDidMount() {
+        axios.get('https://rails-burning-airlines.herokuapp.com/flights/search/SYD/SYD.json')
+        .then( data => {
+            this.setState({results: data.results})
+        })
+        .catch(err => console.log(err));
+    }
 
-    request
 
     render() {
         return (
