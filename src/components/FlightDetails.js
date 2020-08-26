@@ -39,16 +39,17 @@ class FlightDetails extends React.Component {
             )
             .then(data => {
                 console.log(data);
-                this.setState({ users:data.data });
+                this.setState({ users: data.data });
             })
             .catch(err => console.log(err));
-            
+
     }
 
     seatClick = (reservationIndex, seatNumber) => {
         // this.setState({
         //   bgColour: "red"
         // });
+        if (this.state.user_name === '') return;
         const newState = this.state;
         newState.data.reservations[reservationIndex].bgColor = 'red';
         newState.my_reservations.seat_id =
@@ -56,17 +57,21 @@ class FlightDetails extends React.Component {
 
         const query = seatNumber
         const seat = new RegExp(`^${query}$`);
-        this.setState(state  => {
+        this.setState(state => {
             state.data.reservations.filter(r => r.seat_number.match(seat))[0].user_id = this.state.user_id
             return state
         })
 
-    };  
+    };
+
+    fuckingButtonSubmitThisShit = () => {
+        console.log( this.state )
+    }
 
     selectUser = (event) => {
-        this.setState({user_id: event.target.value})
-        const selection = this.state.users.filter(user => {return user.id == event.target.value})[0].name
-        this.setState({user_name: selection})
+        this.setState({ user_id: event.target.value })
+        const selection = this.state.users.filter(user => { return user.id == event.target.value })[0].name
+        this.setState({ user_name: selection })
     }
 
 
@@ -75,14 +80,14 @@ class FlightDetails extends React.Component {
 
 
             <div class="wrapper">
-                <button onClick={ this.testFunction }>Test</button>
+                <button onClick={this.testFunction}>Test</button>
 
-                <select onChange = {this.selectUser}>
-                        <option disabled selected>Please select user</option>
-                        {
-                            this.state.users.map(user => <option value={user.id}>{user.name}</option>)
-                        }
-                    </select>
+                <select onChange={this.selectUser}>
+                    <option disabled selected>Please select user</option>
+                    {
+                        this.state.users.map(user => <option value={user.id}>{user.name}</option>)
+                    }
+                </select>
 
                 <hr />
 
@@ -94,14 +99,20 @@ class FlightDetails extends React.Component {
                             className="seat"
                             key={index}
                             style={{ backgroundColor: reservation.bgColor }}
-                            onClick={() => this.seatClick(index,reservation.seat_number)}
+                            onClick={() => this.seatClick(index, reservation.seat_number)}
                         >
                             {reservation.seat_number}
-                            Reserved by: user: 
-                            {reservation.user_id}
+                            Reserved by: user:
+                            {reservation.user_id === null ? 'vacant' : `X ${this.state.user_name}`}
                         </div>
                     ))}
                 </div>
+
+                <button onClick={() => {
+                    this.fuckingButtonSubmitThisShit()
+                }}
+                >Submit
+                </button>
             </div>
         );
     }
