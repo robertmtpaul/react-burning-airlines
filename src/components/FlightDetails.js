@@ -9,7 +9,10 @@ class FlightDetails extends React.Component {
             reservations: []
         },
         user_id: 1,
-        my_reservations: {},
+        my_reservations: {
+            seat_id: [],
+            user_id: []
+        },
         bgColour: ""
     }
 
@@ -26,6 +29,7 @@ class FlightDetails extends React.Component {
 
     seatClick = (event) => {
         this.setState({
+            seat_id: this.reservation.id,
             bgColour: "red"
         })
     }
@@ -36,9 +40,11 @@ class FlightDetails extends React.Component {
             <div class="container">
                 {
                     this.state.data.reservations.map(reservation => (
+                        
                         <div class="seat" style={{backgroundColor: this.state.bgColour}} onClick={ this.seatClick }>
                             {reservation.seat_number}
                         </div>
+
                     ))
                 }
             </div>
