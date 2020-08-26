@@ -5,32 +5,17 @@ class FlightSearch extends React.Component {
 
     state = {
         airports: [{ name: 'Sydney', code: 'SYD' }, { name: 'Melbourne', code: 'MEL' }, { name: 'Auckland', code: 'AKL' }],
-        results: [
-            { 
-                date: "test date", 
-                flight_number: "test flight", 
-                origin: "test origin",
-                destination: "test dest",
-                plane: "test name"
-                
-            }, 
-            { 
-                date: "test date2", 
-                flight_number: "test flight 2", 
-                origin: "test origin 2",
-                destination: "test dest 2",
-                plane: "test name"
-            } 
-        ]  
+        results: []
     }
 
-    // componentDidMount() {
-    //     axios.get('')
-    //     .then( data => {
-    //         this.setState({airports: data.results})
-    //     })
-    //     .catch(err => console.log(err));
-    // }
+    componentDidMount() {
+        axios.get('https://rails-burning-airlines.herokuapp.com/flights/search/SYD/SYD.json')
+        .then( data => {
+          console.log(data);
+          this.setState({results: data.data})
+        })
+        .catch(err => console.log(err));
+    }
 
     request
 
@@ -56,13 +41,13 @@ class FlightSearch extends React.Component {
                 <br />
                 <h3>Flight search results</h3>
                 <table>
-                    <tr>
+                    <thead>
                         <td>Date</td>
                         <td>Flight number</td>
                         <td>From</td>
                         <td>To</td>
                         <td>Plane</td>
-                    </tr>
+                    </thead>
                     {
                         this.state.results.map(result => (
                             <tr>
@@ -70,7 +55,7 @@ class FlightSearch extends React.Component {
                                 <td>{result.flight_number}</td>
                                 <td>{result.origin}</td>
                                 <td>{result.destination}</td>
-                                <td>{result.plane}</td>
+                                <td>{result.airplane.name}</td>
                            </tr>
                         ))
                     }
