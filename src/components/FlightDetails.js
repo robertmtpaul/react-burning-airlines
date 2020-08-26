@@ -15,12 +15,13 @@ class FlightDetails extends React.Component {
             reservations: []
         },
         user_id: 1,
+        user_name: '',
         my_reservations: {},
-        bgColour: ""
+        bgColour: "",
+        users: []
     };
 
     componentDidMount() {
-        console.log(this.props);
         axios
             .get(
                 `https://rails-burning-airlines.herokuapp.com/flights/${
@@ -32,9 +33,19 @@ class FlightDetails extends React.Component {
                 this.setState({ data: data.data });
             })
             .catch(err => console.log(err));
+        axios
+            .get(
+                `https://rails-burning-airlines.herokuapp.com/users.json`
+            )
+            .then(data => {
+                console.log(data);
+                this.setState({ users:data.data });
+            })
+            .catch(err => console.log(err));
+            
     }
 
-    seatClick = (reservationIndex) => {
+    seatClick = (reservationIndex, seatNumber) => {
         // this.setState({
         //   bgColour: "red"
         // });
@@ -43,18 +54,24 @@ class FlightDetails extends React.Component {
         newState.my_reservations.seat_id =
             this.setState(newState);
 
-    };
-
-    testFunction = ( event ) => {
-        const query = '1A'
+        const query = seatNumber
         const seat = new RegExp(`^${query}$`);
-        console.log(this.state.data.reservations.filter(r => r.seat_number.match(seat)))
-        const selection = this.state.data.reservations.filter(r => r.seat_number.match(seat))[0]
-        this.setState( {selection:{selection, user_id: 1}})
-        console.log( selection)
+        this.setState(state  => {
+            state.data.reservations.filter(r => r.seat_number.match(seat))[0].user_id = this.state.user_id
+            return state
+        })
+
+    };  
+
+    selectUser = (event) => {
+        this.setState({user_id: event.target.value})
+        const user = new RegExp(`^${event.target.value}$`);
+        const selection = this.state.users.filter(r => r.id.match(user))[0]
+        console.log( selection )
+
+        // this.setState({user_name })
     }
 
-    
 
 
     render() {
@@ -63,7 +80,16 @@ class FlightDetails extends React.Component {
 
             <div class="wrapper">
                 <button onClick={ this.testFunction }>Test</button>
-                <br />
+
+                <select onChange = {this.selectUser}>
+                        <option disabled selected>Please select user</option>
+                        {
+                            this.state.users.map(user => <option value={user.id}>{user.name}</option>)
+                        }
+                    </select>
+
+                <hr />
+
 
 
                 <div class="container">
@@ -72,9 +98,10 @@ class FlightDetails extends React.Component {
                             className="seat"
                             key={index}
                             style={{ backgroundColor: reservation.bgColor }}
-                            onClick={() => this.seatClick(index)}
+                            onClick={() => this.seatClick(index,reservation.seat_number)}
                         >
                             {reservation.seat_number}
+                            Reserved by: user: 
                             {reservation.user_id}
                         </div>
                     ))}
