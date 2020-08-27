@@ -75,7 +75,7 @@ class FlightDetails extends React.Component {
         console.log(this.state)
         let flightID = this.state.data.id 
         // variable containing flight ID goes here '
-        axios.post( `https://rails-burning-airlines.herokuapp.com/flights/${flightID}`, {content: this.state.data.reservations})
+        axios.post( `https://rails-burning-airlines.herokuapp.com/flights/${flightID}/reservations`, { reservations: this.state.data.reservations})
         .then( res => {
             console.log(res);
         })
