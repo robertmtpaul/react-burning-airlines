@@ -14,6 +14,7 @@ class FlightDetails extends React.Component {
         user_id: 1,
         user_name: '',
         my_reservations: {},
+
         bgColour: '',
         users: [],
     };
@@ -74,6 +75,9 @@ class FlightDetails extends React.Component {
     saveReservation = (seat) => {
         console.log(this.state)
         let flightID = this.state.data.id 
+        let my_reservation_user_id 
+        let my_reservation_flight_id
+        let my_reservation_seat_number
         // variable containing flight ID goes here '
         axios.post( `https://rails-burning-airlines.herokuapp.com/flights/${flightID}/reservations`, { reservations: this.state.data.reservations})
         .then( res => {
