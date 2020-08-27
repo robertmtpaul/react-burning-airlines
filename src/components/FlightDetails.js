@@ -17,7 +17,7 @@ class FlightDetails extends React.Component {
         user_id: 1,
         user_name: '',
         my_reservations: {},
-        bgColour: "",
+        bgColour: '',
         users: []
     };
 
@@ -64,8 +64,8 @@ class FlightDetails extends React.Component {
 
     };
 
-    fuckingButtonSubmitThisShit = () => {
-        console.log( this.state )
+    buttonHandler = () => {
+        console.log(this.state)
     }
 
     selectUser = (event) => {
@@ -80,7 +80,6 @@ class FlightDetails extends React.Component {
 
 
             <div class="wrapper">
-                <button onClick={this.testFunction}>Test</button>
 
                 <select onChange={this.selectUser}>
                     <option disabled selected>Please select user</option>
@@ -91,9 +90,19 @@ class FlightDetails extends React.Component {
 
                 <hr />
 
+                <div>
+
+                    {this.state.data.map((flight) => (
+                        <div>
+                            {flight.flight_number}
+                        </div>
+                    ))}
+                </div>
+
 
 
                 <div class="container">
+
                     {this.state.data.reservations.map((reservation, index) => (
                         <div
                             className="seat"
@@ -108,8 +117,9 @@ class FlightDetails extends React.Component {
                     ))}
                 </div>
 
+
                 <button onClick={() => {
-                    this.fuckingButtonSubmitThisShit()
+                    this.buttonHandler()
                 }}
                 >Submit
                 </button>
