@@ -12,13 +12,15 @@ class FlightDetails extends React.Component {
 
     state = {
         data: {
-            reservations: []
+            reservations: [],
+            flight_number: '',
+            destination: ''
         },
         user_id: 1,
         user_name: '',
         my_reservations: {},
         bgColour: '',
-        users: []
+        users: [],
     };
 
     componentDidMount() {
@@ -89,15 +91,15 @@ class FlightDetails extends React.Component {
                 </select>
 
                 <hr />
-
+{/* 
                 <div>
 
-                    {this.state.data.map((flight) => (
+                    {this.state.data.filter(flight) => (
                         <div>
                             {flight.flight_number}
                         </div>
                     ))}
-                </div>
+                </div> */}
 
 
 
