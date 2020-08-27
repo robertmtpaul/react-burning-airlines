@@ -4,13 +4,6 @@ import { Route, Link, HashRouter as Router } from "react-router-dom";
 
 class FlightDetails extends React.Component {
 
-
-    saveReservation = (seat) => {
-        this.setState({
-            my_reservations: seat
-        })
-    }
-
     state = {
         data: {
             reservations: [],
@@ -49,7 +42,10 @@ class FlightDetails extends React.Component {
 
     }
 
-  
+    
+
+
+
     seatClick = (reservationIndex, seatNumber) => {
         // this.setState({
         //   bgColour: "red"
@@ -68,14 +64,23 @@ class FlightDetails extends React.Component {
         this.setState(newState);
     };
 
-    buttonHandler = () => {
-        console.log(this.state)
-    }
 
     selectUser = (event) => {
         this.setState({ user_id: event.target.value })
         const selection = this.state.users.filter(user => { return user.id == event.target.value })[0].name
         this.setState({ user_name: selection })
+    }
+
+    saveReservation = (seat) => {
+        console.log(this.state)
+        let flightID = this.state.data.id 
+        // variable containing flight ID goes here '
+        axios.post( `https://rails-burning-airlines.herokuapp.com/flights/${flightID}`, {content: this.state.data.reservations})
+        .then( res => {
+            console.log(res);
+        })
+        .catch( err => console.warn(err) );
+
     }
 
 
@@ -117,7 +122,7 @@ class FlightDetails extends React.Component {
                         >
                             {reservation.seat_number}
                             <br/>
-                            Reserved by: user:
+                            
                             {reservation.user_id === null ? 'vacant' : `X ${this.state.user_name}`}
                         </div>
                     ))}
@@ -125,9 +130,9 @@ class FlightDetails extends React.Component {
 
 
                 <button onClick={() => {
-                    this.buttonHandler()
+                    this.saveReservation()
                 }}
-                >Submit
+                >Reserve seat(s)
                 </button>
             </div>
         );
