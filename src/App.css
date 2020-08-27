@@ -55,8 +55,23 @@ table, td {
   grid-row-gap: 10px;
   margin-left: 50px;
   margin-right: 50px;
-
 }
+
+.container div {
+  border: 1px solid black;
+}
+
+.flight_particulars {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.flight_particulars li{
+  display: block;
+}
+
 
 .seat {
   padding: 20px;

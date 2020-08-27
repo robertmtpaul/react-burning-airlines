@@ -4,6 +4,7 @@ import { Route, Link, HashRouter as Router } from "react-router-dom";
 
 class FlightDetails extends React.Component {
 
+
     saveReservation = (seat) => {
         this.setState({
             my_reservations: seat
@@ -14,7 +15,8 @@ class FlightDetails extends React.Component {
         data: {
             reservations: [],
             flight_number: '',
-            destination: ''
+            destination: '',
+            airplane: []
         },
         user_id: 1,
         user_name: '',
@@ -47,23 +49,23 @@ class FlightDetails extends React.Component {
 
     }
 
+  
     seatClick = (reservationIndex, seatNumber) => {
         // this.setState({
         //   bgColour: "red"
         // });
         if (this.state.user_name === '') return;
+        //Here we start out by taking a copy of the state, 
         const newState = this.state;
+        // do both changes to state: 
         newState.data.reservations[reservationIndex].bgColor = 'red';
-        newState.my_reservations.seat_id =
-            this.setState(newState);
-
         const query = seatNumber
         const seat = new RegExp(`^${query}$`);
-        this.setState(state => {
-            state.data.reservations.filter(r => r.seat_number.match(seat))[0].user_id = this.state.user_id
-            return state
-        })
-
+        newState.data.reservations.filter(r => 
+            r.seat_number.match(seat)
+            )[0].user_id = newState.user_id;
+        // then at the end of this function we commit that new state 
+        this.setState(newState);
     };
 
     buttonHandler = () => {
@@ -91,15 +93,16 @@ class FlightDetails extends React.Component {
                 </select>
 
                 <hr />
-{/* 
+                
                 <div>
-
-                    {this.state.data.filter(flight) => (
-                        <div>
-                            {flight.flight_number}
-                        </div>
-                    ))}
-                </div> */}
+                    <ul class="flight_particulars">
+                        <li>Date: {this.state.data.date}</li>
+                        <li>Flight number: {this.state.data.flight_number}</li>
+                        <li>From: {this.state.data.origin}</li>
+                        <li>To: {this.state.data.destination}</li>
+                        <li>Type: {this.state.data.airplane.name}</li>
+                    </ul>
+                </div>
 
 
 
@@ -113,6 +116,7 @@ class FlightDetails extends React.Component {
                             onClick={() => this.seatClick(index, reservation.seat_number)}
                         >
                             {reservation.seat_number}
+                            <br/>
                             Reserved by: user:
                             {reservation.user_id === null ? 'vacant' : `X ${this.state.user_name}`}
                         </div>
